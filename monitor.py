@@ -236,30 +236,30 @@ def format_notification(
     for label, rows in new.items():
         for r in rows:
             parts.append(
-                f"🔴 NEUER ENGPASS: {label}\n"
-                f"  Produkt: {r.get('Arzneimittelbezeichnung', '?')}\n"
+                f"🔴 NEW SHORTAGE: {label}\n"
+                f"  Product: {r.get('Arzneimittelbezeichnung', '?')}\n"
                 f"  PZN: {r.get('PZN', '?')}\n"
-                f"  Beginn: {r.get('Beginn', '?')} → Ende: {r.get('Ende', '?')}\n"
-                f"  Grund: {r.get('Art des Grundes', '?')}\n"
-                f"  Hersteller: {r.get('Zulassungsinhaber', '?')}"
+                f"  From: {r.get('Beginn', '?')} → Until: {r.get('Ende', '?')}\n"
+                f"  Reason: {r.get('Art des Grundes', '?')}\n"
+                f"  Manufacturer: {r.get('Zulassungsinhaber', '?')}"
             )
 
     for label, rows in changed.items():
         for r in rows:
             parts.append(
-                f"🟡 ENGPASS AKTUALISIERT: {label}\n"
-                f"  Produkt: {r.get('Arzneimittelbezeichnung', '?')}\n"
+                f"🟡 SHORTAGE UPDATED: {label}\n"
+                f"  Product: {r.get('Arzneimittelbezeichnung', '?')}\n"
                 f"  PZN: {r.get('PZN', '?')}\n"
-                f"  Beginn: {r.get('Beginn', '?')} → Ende: {r.get('Ende', '?')}\n"
-                f"  Grund: {r.get('Art des Grundes', '?')}\n"
-                f"  Hersteller: {r.get('Zulassungsinhaber', '?')}"
+                f"  From: {r.get('Beginn', '?')} → Until: {r.get('Ende', '?')}\n"
+                f"  Reason: {r.get('Art des Grundes', '?')}\n"
+                f"  Manufacturer: {r.get('Zulassungsinhaber', '?')}"
             )
 
     for label, rows in resolved.items():
         for r in rows:
             parts.append(
-                f"🟢 ENGPASS BEENDET: {label}\n"
-                f"  Produkt: {r.get('Arzneimittelbezeichnung', '?')}\n"
+                f"🟢 SHORTAGE RESOLVED: {label}\n"
+                f"  Product: {r.get('Arzneimittelbezeichnung', '?')}\n"
                 f"  PZN: {r.get('PZN', '?')}"
             )
 
@@ -271,12 +271,12 @@ def format_notification(
     n_resolved = sum(len(v) for v in resolved.values())
     title_parts = []
     if n_new:
-        title_parts.append(f"{n_new} neu")
+        title_parts.append(f"{n_new} new")
     if n_changed:
-        title_parts.append(f"{n_changed} aktualisiert")
+        title_parts.append(f"{n_changed} updated")
     if n_resolved:
-        title_parts.append(f"{n_resolved} beendet")
-    title = "BfArM Lieferengpass: " + ", ".join(title_parts)
+        title_parts.append(f"{n_resolved} resolved")
+    title = "BfArM Drug Shortage: " + ", ".join(title_parts)
 
     body = "\n\n".join(parts)
     return title, body
