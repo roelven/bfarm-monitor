@@ -1,0 +1,18 @@
+services:
+  bfarm-monitor:
+    build: .
+    container_name: bfarm-monitor
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - bfarm-data:/data
+    env_file:
+      - .env
+    environment:
+      CHECK_INTERVAL: "21600"   # 6 hours
+      LOG_LEVEL: "INFO"
+      REQUEST_TIMEOUT: "30"
+
+volumes:
+  bfarm-data:
